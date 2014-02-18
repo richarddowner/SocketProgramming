@@ -1,0 +1,6 @@
+C:\dev\SocketProgramming\EmployeeTCPServer\bin\Debug\EmployeeTCPServer.exe.config
+C:\dev\SocketProgramming\EmployeeTCPServer\bin\Debug\EmployeeTCPServer.exe
+C:\dev\SocketProgramming\EmployeeTCPServer\bin\Debug\EmployeeTCPServer.pdb
+C:\dev\SocketProgramming\EmployeeTCPServer\obj\Debug\EmployeeTCPServer.csprojResolveAssemblyReference.cache
+C:\dev\SocketProgramming\EmployeeTCPServer\obj\Debug\EmployeeTCPServer.exe
+C:\dev\SocketProgramming\EmployeeTCPServer\obj\Debug\EmployeeTCPServer.pdb

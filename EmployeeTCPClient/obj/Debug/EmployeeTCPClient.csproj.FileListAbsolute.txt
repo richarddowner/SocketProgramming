@@ -1,0 +1,6 @@
+C:\dev\SocketProgramming\EmployeeTCPClient\bin\Debug\EmployeeTCPClient.exe.config
+C:\dev\SocketProgramming\EmployeeTCPClient\bin\Debug\EmployeeTCPClient.exe
+C:\dev\SocketProgramming\EmployeeTCPClient\bin\Debug\EmployeeTCPClient.pdb
+C:\dev\SocketProgramming\EmployeeTCPClient\obj\Debug\EmployeeTCPClient.csprojResolveAssemblyReference.cache
+C:\dev\SocketProgramming\EmployeeTCPClient\obj\Debug\EmployeeTCPClient.exe
+C:\dev\SocketProgramming\EmployeeTCPClient\obj\Debug\EmployeeTCPClient.pdb
