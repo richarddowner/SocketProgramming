@@ -2,28 +2,24 @@
 using System.Configuration;
 using System.IO;
 using System.Net.Sockets;
+using System.ServiceProcess;
 using System.Threading;
 
 namespace EmployeeTCPServer
 {
-    class EmployeeTCPServer
+    class EmployeeTCPServer : ServiceBase
     {
         static TcpListener listener;
         const int LIMIT = 5; // 5 concurrent clients
 
-        public static void Main()
+        public EmployeeTCPServer()
         {
-            listener = new TcpListener(2055);
-            listener.Start();
-            #if LOG
-            Console.WriteLine("Server mounted, listening to port 2055");
-            #endif
-            for (int i = 0; i < LIMIT; i++)
-            {
-                var t = new Thread(Service);
-                t.Start();
-            }
+            this.ServiceName = "EmployeeTCPServer";
+            this.CanStop = true;
+            this.CanPauseAndContinue = false;
+            this.AutoLog = true;
         }
+        
         public static void Service()
         {
             while (true)
@@ -65,11 +61,36 @@ namespace EmployeeTCPServer
                     Console.WriteLine(e.Message);
                     #endif
                 }
-                    #if LOG
-                    Console.WriteLine("Disconnected: {0}", soc.RemoteEndPoint);
-                    #endif
+                #if LOG
+                Console.WriteLine("Disconnected: {0}", soc.RemoteEndPoint);
+                #endif
                 soc.Close();
             }
+        }
+
+        protected override void OnStart(string[] args)
+        {
+            // do startup stuff
+            listener = new TcpListener(2055);
+            listener.Start();
+            #if LOG
+            Console.WriteLine("Server mounted, listening to port 2055");
+            #endif
+            for (int i = 0; i < LIMIT; i++)
+            {
+                var t = new Thread(Service);
+                t.Start();
+            }
+        }
+
+        protected override void OnStop()
+        {
+            // do shutdown stuff
+        }
+
+        public static void Main(string[] args)
+        {
+            ServiceBase.Run(new EmployeeTCPServer());
         }
     }
 }
