@@ -20,7 +20,7 @@ namespace EmployeeTCPServer
             #endif
             for (int i = 0; i < LIMIT; i++)
             {
-                Thread t = new Thread(new ThreadStart(Service));
+                var t = new Thread(Service);
                 t.Start();
             }
         }
@@ -32,38 +32,42 @@ namespace EmployeeTCPServer
                 //soc.SetSocketOption(SocketOptionLevel.Socket,
                 //        SocketOptionName.ReceiveTimeout,10000);
                 #if LOG
-                Console.WriteLine("Connected: {0}", 
-                                         soc.RemoteEndPoint);
+                Console.WriteLine("Connected: {0}", soc.RemoteEndPoint);
                 #endif
                 try
                 {
                     Stream s = new NetworkStream(soc);
-                    StreamReader sr = new StreamReader(s);
-                    StreamWriter sw = new StreamWriter(s);
-                    sw.AutoFlush = true; // enable automatic flushing
-                    sw.WriteLine("{0} Employees available",
-                        ConfigurationSettings.AppSettings.Count);
+                    var sr = new StreamReader(s);
+                    var sw = new StreamWriter(s)
+                    {
+                        AutoFlush = true
+                    };
+                    sw.WriteLine("{0} Employees available", ConfigurationSettings.AppSettings.Count);
                     while (true)
                     {
                         string name = sr.ReadLine();
-                        if (name == "" || name == null) break;
-                        string job =
-                            ConfigurationSettings.AppSettings[name];
-                        if (job == null) job = "No such employee";
+                        if (string.IsNullOrEmpty(name))
+                        {
+                            break;
+                        }
+                        string job = ConfigurationSettings.AppSettings[name];
+                        if (job == null)
+                        {
+                            job = "No such employee";
+                        }
                         sw.WriteLine(job);
                     }
                     s.Close();
                 }
                 catch (Exception e)
                 {
-                #if LOG
+                    #if LOG
                     Console.WriteLine(e.Message);
-                #endif
+                    #endif
                 }
-                #if LOG
-                Console.WriteLine("Disconnected: {0}", 
-                                        soc.RemoteEndPoint);
-                #endif
+                    #if LOG
+                    Console.WriteLine("Disconnected: {0}", soc.RemoteEndPoint);
+                    #endif
                 soc.Close();
             }
         }
