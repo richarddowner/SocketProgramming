@@ -9,3 +9,4 @@ YAPM Packages
 *.orig-rdn
 *.crunchsolution.cache
 lastrestore.time
+*.csproj

@@ -4,11 +4,13 @@ using System.Net.Sockets;
 
 namespace EmployeeTCPClient
 {
-    internal class EmployeeTCPClient
+    internal static class EmployeeTCPClient
     {
         public static void Main(string[] args)
         {
-            var client = new TcpClient(args[0], 2055);
+            var hostname = GetHostname(args);
+
+            var client = new TcpClient(hostname, 2055);
             try
             {
                 Stream s = client.GetStream();
@@ -35,6 +37,21 @@ namespace EmployeeTCPClient
             {
                 client.Close();
             }
+        }
+
+        private static string GetHostname(string[] args)
+        {
+            string hostname;
+            if (args.Length != 0)
+            {
+                hostname = args[0];
+            }
+            else
+            {
+                Console.Write("Please enter server hostname: ");
+                hostname = Console.ReadLine();
+            }
+            return hostname;
         }
     }
 }
